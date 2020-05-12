@@ -1,0 +1,79 @@
+.task-card:hover {
+    transform: translateY(-40px)!important;
+    z-index: 2;
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+}
+
+.task-card:hover .icon {
+    transform: scale(.9) translateY(-10px);
+}
+
+.task-card .icon {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    top: -22px;
+    background-color: #fff;
+    transition: transform .4s cubic-bezier(.215,.61,.355,1);
+    box-shadow: 0 2px 5px rgba(50,50,93,.1), 0 1px 1.5px rgba(0,0,0,.07);
+}
+
+.task-card:hover .cardFooter{
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.task-card {
+    position: relative;
+    transition: transform .4s cubic-bezier(.215,.61,.355,1);
+    transform: translateY(0);
+    min-height: 350px;
+    // max-height: 355px;
+    margin-bottom: 40px;
+}
+
+.task-card .cardFooter {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    // padding: 9px 10px;
+    height: 55px;
+    box-shadow: none;
+    text-align: center;
+    transition: .4s cubic-bezier(.215,.61,.355,1);
+    background: #f4f5f7!important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(50%);
+    opacity: 0;
+}
+
+.custom-btn.btn-default:not(:disabled):not(.disabled):active, .btn-default:not(:disabled):not(.disabled).active, .show > .btn-default.dropdown-toggle {
+    background-color: transparent!important;
+}
+
+.custom-btn {
+    border: none!important
+}
+
+a .cardFooter {
+    color: #414141
+}
+
+a .cardFooter:hover {
+    color: #414141
+}
+
+.task-card a {
+    position: absolute;
+    bottom: 40px;
+}
+
+.submitted-circle {
+    color: #1aae6f;
+    background-color: rgba(84,218,161,.5)!important;
+    top: 10px !important;
+    right: 10px!important;
+}

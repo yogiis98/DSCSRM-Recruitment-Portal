@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" class="perfect-scrollbar-off nav-open">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#000000" />
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/logo_dsc.png" />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="%PUBLIC_URL%/logo_dsc.png"
+    />
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+      rel="stylesheet"
+    />
+    <title>DSC Recruitments</title>
+    <style>
+      body {
+        margin:0px;
+        
+        background-size: contain;
+      }
+      @-webkit-keyframes bouncing-loader {
+        to {
+          -webkit-transform: translate3d(0, -1rem, 0);
+          transform: translate3d(0, -1rem, 0)
+        }
+      }
+
+      @keyframes bouncing-loader {
+        to {
+          -webkit-transform: translate3d(0, -1rem, 0);
+          transform: translate3d(0, -1rem, 0)
+        }
+      }
+
+      .bouncing-loader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        position: fixed;
+        z-index: 999999999;
+        background:#fff;
+        width: 100%;
+        top: 0
+      }
+
+      .bouncing-loader>div {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin: .75rem;
+        background: #4285f4;
+        border-radius: 50%;
+        -webkit-animation: bouncing-loader 500ms infinite alternate;
+        animation: bouncing-loader 500ms infinite alternate
+      }
+
+      .bouncing-loader>div:nth-child(2) {
+        background: #ea4335;
+        -webkit-animation-delay: 125ms;
+        animation-delay: 125ms
+      }
+
+      .bouncing-loader>div:nth-child(3) {
+        background: #fbbc05;
+        -webkit-animation-delay: 250ms;
+        animation-delay: 250ms
+      }
+
+      .bouncing-loader>div:nth-child(4) {
+        background: #34a853;
+        -webkit-animation-delay: 375ms;
+        animation-delay: 375ms
+      }
+      [data-test='powered-by-image'] {
+        display: none!important;
+      }
+
+    </style>
+        <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.3/dist/confetti.browser.min.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121065692-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-121065692-2');
+    </script>
+  </head>
+  <body>
+    <noscript> You need to enable JavaScript to run this app. </noscript>
+    <div id="root">
+      <div class="preloader bouncing-loader" style="">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>

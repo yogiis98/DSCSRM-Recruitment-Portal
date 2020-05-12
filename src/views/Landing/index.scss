@@ -1,0 +1,706 @@
+.timeline:before {
+    content: "";
+    position: absolute;
+    margin-top: 10px;
+    left: 1rem;
+    height: 100%;
+    border-right: 2px solid #e9ecef;
+    z-index: -5;
+    border-right-style: dashed!important;
+}
+.hero-img{
+        position: absolute;
+    margin-top:-100px;
+    max-width: 500px;
+    text-align: center;
+    width: 100%;
+    left: 50%;
+    transform: translate(-50%,0%);
+    z-index: 0;
+}
+// titan saturn
+
+$saturnSize: 152px;
+$saturnRingSize: 330px;
+$saturnRingWidth: 50px;
+$saturnRingSegments: 50;
+
+$titanSize: 84px;
+
+%absPosition {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 50%;
+    transform: translateY(-50%);   
+}
+
+%eye {
+    @extend %absPosition;
+
+    width: 6px;
+    height: 6px;
+    background: #53487a;
+    border-radius: 10px;
+    bottom: 34px;
+
+    animation: blink 1s 0s infinite linear;
+
+    &.eye--left {
+        left: -80px;
+    }
+
+    &.eye--right {
+        left: 80px;
+    }
+}
+
+body {
+
+    & .scene {
+        @extend %absPosition;
+
+        perspective:2600px;
+        width: 500px;
+        height: 500px;
+
+        &_titanShadow {
+            @extend %absPosition;
+
+            width: $titanSize;
+            height: $titanSize / 4;
+            border-radius: 100%;
+            transform-style: preserve-3d;
+            box-shadow: 0px 200px 20px #ccc;
+            animation: titan 6s infinite ease;
+            bottom: 400px;
+        }
+
+        .t_wrap {
+            animation: titanWrap 6s infinite ease; 
+        }
+
+        &_titan {
+            @extend %absPosition;
+
+            width: $titanSize;
+            height: $titanSize;
+            border-radius: $titanSize / 2;
+            background: #a5c6ff;
+            transform-style: preserve-3d;
+            box-shadow: 0px 0px 0px 4px rgba(169, 187, 236, 0.38823529411764707) inset, -30px -20px 50px #637bff inset;
+            animation: titan 6s infinite ease;
+            top: -220px;
+
+            & .eyes {
+                animation: titan_eye 6s infinite ease;
+
+                & .eye {
+                    @extend %eye;
+
+
+
+                    &.eye--left {
+                        left: -34px;
+                        bottom: -120px;
+                    }
+
+                    &.eye--right {
+                        left: 34px;
+                        bottom: -120px;
+                    }
+                }
+            }
+        }
+
+        &_saturn {
+            @extend %absPosition;
+
+            width: $saturnSize;
+            height: $saturnSize;
+            border-radius: $saturnSize / 2;
+            background: white;
+            transform-style: preserve-3d;
+            box-shadow: 0px 0px 0px 4px rgba(255, 255, 255, 0.32941176470588235) inset, -30px -20px 50px #a5adff inset;
+            animation: saturn 0.6s infinite linear;
+
+            &__shadow {
+                @extend %absPosition;
+
+                width:  $saturnSize;
+                height:  $saturnSize / 4 ;
+                border-radius: 100%;
+                box-shadow: 0 150px 40px #ccc;
+
+            }
+
+            &__shadowRing {
+                @extend %absPosition;
+
+                width:  $saturnRingSize;
+                height:  $saturnSize / 8 ;
+                border-radius: 100%;
+                box-shadow: 0 150px 40px #ccc;
+                left: -100px;
+                animation: ringShadow 0.6s infinite linear;
+            }
+
+            &__face {
+                @extend %absPosition;
+
+                width: $saturnSize;
+                height: $saturnSize;
+                border-radius: $saturnSize / 2;
+                overflow: hidden;
+
+                & .face_clip {
+                    position: relative;
+                    top: 95px;
+                    left: 14px;
+                    transform: rotate(8deg);
+                    animation: face 3.6s infinite linear, faceTilt 0.9s infinite linear;
+
+                    & .eye {
+                        @extend %eye;
+                    }
+
+                    & .mouth {
+                        @extend %absPosition;
+
+                        width: 15px;
+                        height: 10px;
+                        top: -5px;
+                        background: #ea0e61;
+                        border-bottom-right-radius: 10px;
+                        border-bottom-left-radius: 10px;
+                        box-shadow: 0 6px 0px #53487a inset;
+                    }
+                }
+            }
+
+            &__sparks {
+                @extend %absPosition;
+
+                transform: translateZ(-100px);
+
+                & .spark {
+                    &:nth-of-type(odd) {
+                        background: #ccc;
+                    }
+
+                    @extend %absPosition;
+
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 10px;
+                    background: #00f7ff;
+
+                    @for $i from 1 through 20 {
+                        @keyframes spark--#{$i} {
+                            from {
+                                transform: scale(1);
+                            }
+                            to {
+                                left: random(400) - 200 + 0px;
+                                top: random(400) - 200 + 0px;
+                                transform: scale(0);
+                            }
+                        }
+
+                        &:nth-of-type(#{$i}) {
+                            animation: spark--#{$i} 1s ($i / 10) + 0s infinite;
+                        }
+                    }
+                }
+            }
+
+            &__ring {
+                @extend %absPosition;
+
+                transform: rotateX(84deg) rotateY(8deg);
+                transform-origin: 50% $saturnRingSize / 2 - 0px;
+                animation: ring 0.6s infinite linear;
+                top: -80px;
+
+                & .small {
+                    @extend %absPosition;
+
+                    animation: spin 0.6s infinite linear;
+                    transform-origin: 50% $saturnRingSize / 2 + 30;
+                    top: -50px;
+
+                    &_part {
+                        @for $i from 1 through 40 {
+                            &:nth-of-type(#{$i}) {
+                                transform: rotate(2deg * $i);
+                                height: 10px - ($i / 4);
+                            }
+                        }
+
+                        @extend %absPosition;
+
+                        width: 30px;
+                        background: #08f7ff;
+                        transform-origin: 50% $saturnRingSize / 2 + 30;
+                    }
+                }
+
+                & .layer {
+                    position: relative;
+
+                    &:nth-of-type(1) {
+                        & .layer_part {
+                            background: #08ffff;
+                        }
+                    }
+
+                    &:nth-of-type(2) {
+                        & .layer_part {
+                            background: #08ffff;
+                        }
+                    }
+
+                    @for $i from 2 through 4 {
+                        &:nth-of-type(#{$i}) {
+                            top: 30px - (12px * $i);   
+                        }
+                    }
+
+                    &_part {
+                        @extend %absPosition;
+
+                        width: 20px;
+                        height: $saturnRingWidth;
+                        background: #21ced2;
+                        transform-origin: 50% $saturnRingSize / 2;
+
+                        @for $i from 1 through $saturnRingSegments {
+                            &:nth-of-type(#{$i}) {
+                                transform: translateY(-50%) rotate(360 / $saturnRingSegments * $i + 0deg)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);  
+    }   
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes saturn {
+    0% {
+        left:0;
+    }
+
+    25% {
+        left: -40px;
+    }
+
+    50% {
+        left: 0px;
+    }
+
+    75% {
+        left: 40px; 
+    }
+}
+
+@keyframes ring {
+    0% {
+        left:0;
+        transform: rotateX(84deg) rotateY(8deg);
+    }
+
+    25% {
+        left: 70px;
+    }
+
+    50% {
+        left: 0px;
+        transform: rotateX(80deg) rotateY(-8deg);
+    }
+
+    75% {
+        left: -70px; 
+    }
+
+    100% {
+        left: 0px; 
+        transform: rotateX(84deg) rotateY(8deg);
+    }
+}
+
+@keyframes ringShadow {
+    0% {
+        left:-100px;
+
+    }
+
+    25% {
+        left: -40px;
+    }
+
+    50% {
+        left:-100px;
+
+    }
+
+    75% {
+        left:-140px;
+    }
+
+    100% {
+        left:-100px;
+
+    }
+}
+
+@keyframes face {
+    from {
+        left:-200px;
+    }    
+    to {
+        left: 200px;
+    }
+}
+
+@keyframes faceTilt {
+    0% {
+        transform: rotate(12deg);
+    }
+
+    50% {
+        transform: rotate(-12deg);
+    }
+
+    100% {
+        transform: rotate(12deg);
+    }
+}
+
+
+@keyframes ringTwo {
+    0% {
+
+        transform: rotateX(84deg);
+    }
+
+
+    50% {
+        transform: rotateX(76deg);
+
+    }
+
+    100% {
+
+        transform: rotateX(84deg);
+    }
+}
+
+@keyframes blink {
+    0% {
+        height: 6px;
+    }
+
+    40% {
+        height: 6px;
+    }
+
+    50% {
+        height: 0px;
+    }
+
+    60% {
+        height: 6px;
+    }
+
+    100% {
+        height: 6px;
+    }
+}
+
+@keyframes titanWrap {
+    0% {
+        transform:translateY(370px);
+    }
+
+    33% {
+        transform:translateY(370px);
+    }
+
+    38% {
+        transform:translateY(400px);
+    }
+
+    43% {
+        transform:translateY(370px);
+    }
+
+    73% {
+        transform:translateY(370px);
+    }
+
+    78% {
+        transform:translateY(400px);
+    }
+
+    83% {
+        transform:translateY(370px);
+    }
+
+    100% {
+        transform:translateY(370px);
+    }
+}
+
+@keyframes titan {
+    0% {
+        left: -400px;
+    }
+
+    33% {
+        left: -400px;
+    }
+
+    43% {
+        left: 400px;
+    }
+
+    73% {
+        left: 400px
+    }
+
+    83% {
+        left: -400px;
+    }
+
+    100% {
+        left: -400px;
+    }
+}
+
+@keyframes titan_eye {
+    0% {
+        transform: rotate(-10deg)
+    }
+
+    33% {
+        transform: rotate(-10deg)
+    }
+
+    43% {
+        transform: rotate(10deg)
+    }
+
+    73% {
+        transform: rotate(10deg)
+    }
+
+    83% {
+        transform: rotate(-10deg)
+    }
+
+    100% {
+        transform: rotate(-10deg)
+    }
+}
+
+@media(max-width:700px){
+    .scene{
+        display: none;
+    }
+}
+
+
+.background {
+	background-image: linear-gradient(
+		#000203 0%,
+		#00345E 85%,
+		#004D89 100%
+	);
+}
+
+.illustration {
+	display: block;
+	position: relative;
+	width: auto;
+	height: 90%;
+	margin: 0 auto;
+	top: 50%;
+}
+
+@media(max-width:700px){
+    .illustration{
+        display: none;
+    }
+}
+
+.hover {
+	width: 100%;
+	height: 100%;
+	animation: hover 5s ease-in-out infinite;
+	animation-fill-mode: forwards;
+}
+
+.number-one {
+	transform: translateY(-10px) translateZ(0);
+	opacity: 0;
+	animation: fadeNumberDown-10 (random(4000) + 2000)+ms ease-in-out infinite;
+	animation-fill-mode: forwards;
+}
+
+.number-two {
+	transform: translateY(-20px) translateZ(0);
+	opacity: 0;
+	animation: fadeNumberDown-20 (random(4000) + 2000)+ms ease-in-out infinite;
+	animation-delay: random(6000) * 1ms;
+	animation-fill-mode: forwards;
+}
+
+.number-three {
+	transform: translateY(-30px) translateZ(0);
+	opacity: 0;
+	animation: fadeNumberDown-30 (random(4000) + 2000)+ms ease-in-out infinite;
+	animation-delay: random(6000) * 1ms;
+	animation-fill-mode: forwards;
+}
+
+.number-four {
+	transform: translateY(-50px) translateZ(0);
+	opacity: 0;
+	animation: fadeNumberDown-50 (random(4000) + 2000)+ms ease-in-out infinite;
+	animation-delay: random(6000) * 1ms;
+	animation-fill-mode: forwards;
+}
+
+.number-five {
+	transform: translateY(-60px) translateZ(0);
+	opacity: 0;
+	animation: fadeNumberDown-60 (random(4000) + 2000)+ms ease-in-out infinite;
+	animation-delay: random(6000) * 1ms;
+	animation-fill-mode: forwards;
+}
+
+.number-six {
+	transform: translateY(-70px) translateZ(0);
+	opacity: 0;
+	animation: fadeNumberDown-70 (random(4000) + 2000)+ms ease-in-out infinite;
+	animation-delay: random(6000) * 1ms;
+	animation-fill-mode: forwards;
+}
+
+.number-seven {
+	transform: translateY(-80px) translateZ(0);
+	opacity: 0;
+	animation: fadeNumberDown-80 (random(4000) + 2000)+ms ease-in-out infinite;
+	animation-delay: random(6000) * 1ms;
+	animation-fill-mode: forwards;
+}
+
+.number-eight {
+	transform: translateY(-90px) translateZ(0);
+	opacity: 0;
+	animation: fadeNumberDown-90 (random(4000) + 2000)+ms ease-in-out infinite;
+	animation-delay: random(6000) * 1ms;
+	animation-fill-mode: forwards;
+}
+
+.number-nine {
+	transform: translateY(-100px) translateZ(0);
+	opacity: 0;
+	animation: fadeNumberDown-100 (random(4000) + 2000)+ms ease-in-out infinite;
+	animation-delay: random(6000) * 1ms;
+	animation-fill-mode: forwards;
+}
+
+.number-ten {
+	transform: translateY(-110px) translateZ(0);
+	opacity: 0;
+	animation: fadeNumberDown-110 (random(4000) + 2000)+ms ease-in-out infinite;
+	animation-delay: random(6000) * 1ms;
+	animation-fill-mode: forwards;
+}
+
+.number-eleven {
+	transform: translateY(-120px) translateZ(0);
+	opacity: 0;
+	animation: fadeNumberDown-120 (random(4000) + 2000)+ms ease-in-out infinite;
+	animation-delay: random(6000) * 1ms;
+	animation-fill-mode: forwards;
+}
+
+.number-twelve {
+	transform: translateY(-150px) translateZ(0);
+	opacity: 0;
+	animation: fadeNumberDown-150 (random(4000) + 2000)+ms ease-in-out infinite;
+	animation-delay: random(6000) * 1ms;
+	animation-fill-mode: forwards;
+}
+
+.number-thirteen {
+	transform: translateY(-160px) translateZ(0);
+	opacity: 0;
+	animation: fadeNumberDown-160 (random(4000) + 2000)+ms ease-in-out infinite;
+	animation-delay: random(6000) * 1ms;
+	animation-fill-mode: forwards;
+}
+
+@keyframes hover {
+	0% { transform: translateY(0) }
+	25% { transform: translateY(-3px) }
+	75% { transform: translateY(3px) }
+	100% { transform: translateY(0) }
+}
+
+// Params: $tstart = translate offset (start point), $tend = translate length (end point)
+@mixin generateNumAnimation($tstart, $tend) {
+	@keyframes fadeNumberDown-#{$tstart} {
+		0% {
+			transform: translateY(-$tstart * 1px) translateZ(0);
+				opacity: 0;
+				}
+		40% { opacity: 0.4; }
+		60% { opacity: 0.4; }
+		100% {
+			transform: translateY($tend * 1px) translateZ(0);
+			opacity: 0;
+		}
+	}
+}
+
+// Create keyframes
+// Number one
+@include generateNumAnimation(10, 140);
+// Number two
+@include generateNumAnimation(20, 140);
+// Number three
+@include generateNumAnimation(30, 130);
+// Number four
+@include generateNumAnimation(50, 110);
+// Number five
+@include generateNumAnimation(60, 90);
+// Number six
+@include generateNumAnimation(70, 80);
+// Number seven
+@include generateNumAnimation(80, 80);
+// Number eight
+@include generateNumAnimation(90, 60);
+// Number nine
+@include generateNumAnimation(100, 60);
+// Number ten
+@include generateNumAnimation(110, 30);
+// Number eleven
+@include generateNumAnimation(120, 20);
+// Number twelve
+@include generateNumAnimation(150, 10);
+// Number thirteen
+@include generateNumAnimation(160, 10);
